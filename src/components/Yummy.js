@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Successrestaurant from './Successrestaurant'
-// import Successrestaurant from './Successrestaurant'
+// import List from './List'
 
 export default class Yummy extends Component {
   constructor (props) {
@@ -46,6 +46,11 @@ export default class Yummy extends Component {
       this.setState({ showAlert: true, alertMessage: 'Please enter dishes you like.' })
     } else {
       this.clearAlert()
+      this.setState({ listOfRecommendation: this.state.listOfRecommendation.push({
+        restaurantName: this.state.restaurantName,
+        restaurantAddr: this.state.restaurantAddr,
+        restaurantDish: this.state.restaurantDish })
+      })
       this.setState({ restaurantName: '', restaurantAddr: '', restaurantDish: '', success: false })
     }
   }
@@ -102,6 +107,7 @@ export default class Yummy extends Component {
               </form>
             </div>}
           </div>
+
         </section>
       </div>
     )
@@ -109,3 +115,4 @@ export default class Yummy extends Component {
 }
 
 // yummy page has a form that asks for input on yummy restaurants
+// and a box that shows the restaurant list cards
