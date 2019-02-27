@@ -46,12 +46,18 @@ export default class Yummy extends Component {
       this.setState({ showAlert: true, alertMessage: 'Please enter dishes you like.' })
     } else {
       this.clearAlert()
-      this.setState({ listOfRecommendation: this.state.listOfRecommendation.push({
+      let newRestaurant = {
         restaurantName: this.state.restaurantName,
         restaurantAddr: this.state.restaurantAddr,
-        restaurantDish: this.state.restaurantDish })
+        restaurantDish: this.state.restaurantDish
+      }
+
+      let newList = JSON.parse(JSON.stringify(this.state.listOfRecommendation))
+      newList.push(newRestaurant)
+      this.setState({ listOfRecommendation: newList
       })
       this.setState({ restaurantName: '', restaurantAddr: '', restaurantDish: '', success: false })
+      console.log('list after submit', this.state.listOfRecommendation)
     }
   }
 
@@ -76,7 +82,7 @@ export default class Yummy extends Component {
           <h1 className='title'>List of Recommended Chinese Restaurants in Houston</h1>
           <div className='box'>
             {this.state.success ? <Successrestaurant reset={() => this.resetForm()} /> : <div className='box'>
-              <h1 className='title'>Login</h1>
+              <h1 className='title'>Yummy Chinese Restaurant!</h1>
               {this.state.showAlert
                 ? <div className='notification is-danger'>
                   <button className='delete' />
@@ -107,8 +113,9 @@ export default class Yummy extends Component {
               </form>
             </div>}
           </div>
-
+          {console.log(this.state.listOfRecommendation)}
         </section>
+        {this.state.listOfRecommendation.map((element, index) => <p key={index}>{element.restaurantName}</p>)}
       </div>
     )
   }
